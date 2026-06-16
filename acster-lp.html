@@ -1,0 +1,1098 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AcSter | 音楽系TikTokライバー事務所</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+JP:wght@400;700;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:     #EFEEEA;
+      --white:  #FAFAF8;
+      --black:  #111111;
+      --green:  #5AE068;
+      --blue:   #4BA8FF;
+      --yellow: #FFE232;
+      --red:    #FF4646;
+      --border: rgba(17,17,17,0.12);
+      --muted:  #777;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--black);
+      font-family: 'Noto Sans JP', sans-serif;
+      overflow-x: hidden;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ── Blob shape classes ── */
+    .blob-green  { background: var(--green);  border-radius: 40% 60% 50% 50% / 55% 45% 55% 45%; }
+    .blob-blue   { background: var(--blue);   border-radius: 65% 35% 45% 55% / 45% 55% 45% 55%; }
+    .blob-yellow { background: var(--yellow); border-radius: 50% 50% 35% 65% / 40% 60% 40% 60%; }
+    .blob-red    { background: var(--red);    border-radius: 35% 65% 65% 35% / 60% 40% 60% 40%; }
+    .blob-black  { background: var(--black);  border-radius: 55% 45% 40% 60% / 50% 50% 55% 45%; }
+
+    /* ── Mobile sticky CTA ── */
+    .sticky-mobile {
+      position: fixed; bottom: 0; left: 0; right: 0;
+      z-index: 200;
+      padding: 10px 20px 16px;
+      background: linear-gradient(to top, var(--bg) 65%, transparent);
+    }
+    .sticky-mobile a {
+      display: block;
+      background: var(--green); color: var(--black); border: 2px solid var(--black);
+      text-decoration: none; text-align: center;
+      font-weight: 900; font-size: 15px;
+      padding: 16px; letter-spacing: 0.06em;
+    }
+    @media (min-width: 768px) { .sticky-mobile { display: none; } }
+
+    /* ── Header ── */
+    .site-header {
+      position: sticky; top: 0; z-index: 100;
+      background: var(--bg);
+      border-bottom: 2px solid var(--black);
+    }
+    .header-inner {
+      max-width: 1100px; margin: 0 auto;
+      padding: 14px 24px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 28px; letter-spacing: 0.2em; color: var(--black);
+      text-decoration: none;
+    }
+    .header-cta {
+      display: none;
+      background: var(--green); color: var(--black);
+      border: 2px solid var(--black);
+      padding: 10px 22px;
+      font-size: 13px; font-weight: 900;
+      text-decoration: none; letter-spacing: 0.06em;
+    }
+    @media (min-width: 768px) { .header-cta { display: block; } }
+
+    /* ── Hero ── */
+    .hero-wrap {
+      border-bottom: 2px solid var(--black);
+      padding: 56px 0 64px;
+    }
+    .hero-inner {
+      max-width: 1100px; margin: 0 auto; padding: 0 24px;
+    }
+    @media (min-width: 768px) {
+      .hero-inner {
+        display: grid;
+        grid-template-columns: 3fr 2fr;
+        gap: 8px;
+        align-items: center;
+      }
+    }
+
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      border: 2px solid var(--black);
+      font-size: 10px; font-weight: 700;
+      letter-spacing: 0.16em; padding: 6px 14px;
+      margin-bottom: 28px; border-radius: 40px;
+    }
+    .hero-badge .live-dot {
+      width: 7px; height: 7px;
+      background: var(--green); border-radius: 50%; flex-shrink: 0;
+    }
+    .hero-title {
+      font-size: clamp(52px, 12vw, 84px);
+      font-weight: 900; line-height: 1.0; letter-spacing: -0.03em;
+      margin-bottom: 24px;
+    }
+    .hero-title .ul {
+      display: inline-block; position: relative;
+    }
+    .hero-title .ul::after {
+      content: '';
+      position: absolute; bottom: -2px; left: 0; right: 0;
+      height: 8px; background: var(--green); z-index: -1;
+    }
+    .hero-sub {
+      font-size: 14px; color: var(--muted);
+      margin-bottom: 36px; line-height: 1.85;
+    }
+    .btn-primary {
+      display: inline-block;
+      background: var(--green); color: var(--black);
+      border: 2px solid var(--black);
+      text-decoration: none; font-weight: 900;
+      font-size: 15px; padding: 18px 36px;
+      letter-spacing: 0.06em;
+    }
+
+    /* ── Hero blob collage ── */
+    .hero-blobs {
+      position: relative; height: 400px;
+      margin-top: 48px;
+    }
+    @media (min-width: 768px) { .hero-blobs { margin-top: 0; } }
+
+    .hb {
+      position: absolute;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      overflow: hidden; text-align: center;
+    }
+    .hb1 { width: 165px; height: 165px; top: 0;   left: 4%; }
+    .hb2 { width: 148px; height: 148px; top: 16px; right: 0; }
+    .hb3 { width: 128px; height: 128px; bottom: 64px; left: 0; }
+    .hb4 { width: 155px; height: 155px; bottom: 20px; right: 6%; }
+    .hb5 { width: 68px;  height: 68px;  top: 46%; left: 46%; transform: translate(-50%,-50%); }
+
+    .hb-icon {
+      width: 48px; height: 48px; border-radius: 50%;
+      background: rgba(255,255,255,0.32);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 6px;
+    }
+    .hb-icon svg { width: 26px; height: 26px; }
+    .hb-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 26px; line-height: 1;
+      color: rgba(17,17,17,0.80);
+    }
+    .hb-label { font-size: 10px; font-weight: 700; color: rgba(17,17,17,0.55); }
+    .hb5 .hb-num { font-size: 20px; color: var(--green); }
+
+    /* Mobile blob collage: 2x2 grid (not absolute) */
+    @media (max-width: 479px) {
+      .hero-blobs {
+        position: static; height: auto;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+      }
+      .hb {
+        position: static;
+        transform: none !important;
+        width: auto !important; height: auto !important;
+        aspect-ratio: 1;
+      }
+      .hb5 { display: none; }
+    }
+
+    /* ── Marquee ── */
+    .marquee-wrap {
+      overflow: hidden;
+      border-bottom: 2px solid var(--black);
+      padding: 14px 0;
+      background: var(--black);
+    }
+    .marquee-track {
+      display: flex;
+      animation: marquee 16s linear infinite;
+      white-space: nowrap;
+    }
+    .marquee-item {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 20px; letter-spacing: 0.12em;
+      color: var(--bg); flex-shrink: 0; padding-right: 60px;
+    }
+    .marquee-item .dot { color: var(--green); margin: 0 8px; }
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
+    /* ── Sections ── */
+    .sec { padding: 80px 0; }
+    .sec-label {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 11px; letter-spacing: 0.26em; color: var(--muted);
+      margin-bottom: 12px;
+    }
+    .sec-title {
+      font-size: clamp(40px, 9vw, 68px);
+      font-weight: 900; line-height: 1.06;
+      letter-spacing: -0.025em; margin-bottom: 20px;
+    }
+    .sec-body {
+      font-size: 14px; color: var(--muted); line-height: 1.85;
+      max-width: 560px;
+    }
+
+    /* ── Stats grid ── */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px; background: var(--black);
+      border: 2px solid var(--black);
+      margin-top: 48px;
+    }
+    @media (min-width: 640px) { .stats-grid { grid-template-columns: repeat(4,1fr); } }
+
+    .stat-item {
+      background: var(--bg);
+      padding: 32px 20px; text-align: center;
+    }
+    .stat-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(48px, 10vw, 72px);
+      line-height: 1; letter-spacing: -0.02em;
+    }
+    .stat-unit { font-size: 28px; }
+    .stat-label { font-size: 11px; color: var(--muted); margin-top: 8px; line-height: 1.6; }
+    .stat-item:nth-child(1) .stat-num { color: var(--green); }
+    .stat-item:nth-child(2) .stat-num { color: var(--blue); }
+    .stat-item:nth-child(3) .stat-num { color: var(--red); }
+    .stat-item:nth-child(4) .stat-num { color: var(--black); }
+
+    /* ── Pull Quote ── */
+    .pullquote {
+      background: var(--black);
+      border-top: 2px solid var(--black);
+      border-bottom: 2px solid var(--black);
+      padding: 80px 0;
+    }
+    .pullquote .sec-label { color: #444; }
+    .pullquote .sec-title { color: var(--white); }
+    .pullquote .sec-title .em { color: var(--green); }
+
+    /* ── Creator cards ── */
+    .creators-bg {
+      background: var(--white);
+      border-top: 2px solid var(--black);
+      border-bottom: 2px solid var(--black);
+    }
+    .creator-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px; margin-top: 48px;
+    }
+    @media (min-width: 480px) and (max-width: 767px) { .creator-grid { grid-template-columns: repeat(3,1fr); } }
+    @media (min-width: 768px) { .creator-grid { grid-template-columns: repeat(3,1fr); } }
+
+    .creator-card { display: flex; flex-direction: column; align-items: center; gap: 12px; }
+    .creator-blob {
+      width: 100%; aspect-ratio: 1; max-width: 220px;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 6px;
+      overflow: hidden; text-align: center;
+    }
+    .c-icon {
+      width: 52px; height: 52px; border-radius: 50%;
+      background: rgba(255,255,255,0.32);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 4px;
+    }
+    .c-icon svg { width: 28px; height: 28px; }
+    .c-stat {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 32px; color: rgba(17,17,17,0.82); line-height: 1;
+    }
+    .c-unit { font-size: 11px; font-weight: 700; color: rgba(17,17,17,0.55); }
+    .creator-name { font-size: 14px; font-weight: 900; }
+    .creator-desc { font-size: 12px; color: var(--muted); line-height: 1.65; text-align: center; }
+
+    /* ── Compare ── */
+    .compare-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 12px; margin-top: 40px;
+    }
+    .cmp-card {
+      padding: 32px 16px; text-align: center;
+      border: 2px solid var(--black);
+    }
+    .cmp-card.other { background: var(--white); }
+    .cmp-card.acster { background: var(--green); }
+    .cmp-tag {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 28px; letter-spacing: 0.12em;
+      color: var(--muted); margin-bottom: 16px;
+      display: block;
+      border-bottom: 2px solid var(--border);
+      padding-bottom: 12px;
+    }
+    .cmp-card.acster .cmp-tag {
+      color: var(--black);
+      border-bottom-color: rgba(17,17,17,0.25);
+    }
+    .cmp-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(60px, 16vw, 88px);
+      line-height: 1; letter-spacing: -0.02em; color: #CCC;
+    }
+    .cmp-num sub { font-size: 36px; vertical-align: baseline; }
+    .cmp-card.acster .cmp-num { color: var(--black); -webkit-text-stroke: 2px var(--black); }
+    .cmp-desc { font-size: 12px; color: var(--muted); margin-top: 12px; line-height: 1.65; }
+    .cmp-card.acster .cmp-desc { color: rgba(17,17,17,0.6); }
+
+    /* ── Features ── */
+    .features-bg {
+      background: var(--black);
+      border-top: 2px solid var(--black);
+    }
+    .features-bg .sec-label { color: #444; }
+    .features-bg .sec-title { color: var(--white); }
+    .feat-list {
+      margin-top: 48px;
+      display: grid; grid-template-columns: 1fr;
+      gap: 2px; background: #1E1E1E;
+      border: 2px solid #1E1E1E;
+    }
+    @media (min-width: 768px) { .feat-list { grid-template-columns: repeat(3,1fr); } }
+    .feat-item { background: var(--black); padding: 32px 24px; display: flex; flex-direction: column; }
+    .feat-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 58px; line-height: 1; margin-bottom: 16px;
+    }
+    .feat-num.c1 { color: var(--green); }
+    .feat-num.c2 { color: var(--blue); }
+    .feat-num.c3 { color: var(--yellow); }
+    .feat-title { font-size: 22px; font-weight: 900; color: var(--white); margin-bottom: 10px; }
+    .feat-desc { font-size: 13px; color: #555; line-height: 1.8; flex: 1; }
+    .feat-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px; }
+    .feat-tag { font-size: 10px; padding: 3px 8px; border: 1px solid #222; color: #444; letter-spacing: 0.06em; }
+    .feat-tag.lit { border-color: rgba(90,224,104,0.3); color: var(--green); }
+
+    /* ── Support grid ── */
+    .support-bg {
+      background: var(--bg);
+      border-top: 2px solid var(--black);
+    }
+    .sup-grid {
+      margin-top: 48px;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 2px; background: var(--black);
+      border: 2px solid var(--black);
+    }
+    @media (min-width: 640px) { .sup-grid { grid-template-columns: repeat(3,1fr); } }
+    .sup-card { background: var(--bg); padding: 24px 20px; }
+    .sup-icon {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 30px; letter-spacing: 0.04em; margin-bottom: 10px;
+    }
+    .si-live { color: var(--green); }
+    .si-pr   { color: var(--blue);  }
+    .si-shop { color: var(--yellow);}
+    .si-sns  { color: var(--red);   }
+    .si-mix  { color: var(--green); }
+    .si-tax  { color: var(--blue);  }
+    .sup-title { font-size: 17px; font-weight: 900; margin-bottom: 6px; }
+    .sup-desc  { font-size: 12px; color: var(--muted); line-height: 1.7; }
+
+    /* ── Steps ── */
+    .steps-bg {
+      background: var(--white);
+      border-top: 2px solid var(--black);
+      border-bottom: 2px solid var(--black);
+    }
+    .step-list {
+      margin-top: 48px;
+      display: grid; grid-template-columns: 1fr;
+      gap: 2px; background: var(--border);
+      border: 2px solid var(--black);
+    }
+    @media (min-width: 640px) { .step-list { grid-template-columns: repeat(4,1fr); } }
+    .step-item { background: var(--white); padding: 28px 20px; }
+    .step-dot {
+      width: 44px; height: 44px;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 16px;
+    }
+    .step-item:nth-child(1) .step-dot { background: var(--green); border-radius: 60% 40% 50% 50% / 55% 45% 55% 45%; }
+    .step-item:nth-child(2) .step-dot { background: var(--blue);  border-radius: 40% 60% 45% 55% / 45% 55% 45% 55%; }
+    .step-item:nth-child(3) .step-dot { background: var(--yellow);border-radius: 50% 50% 65% 35% / 40% 60% 40% 60%; }
+    .step-item:nth-child(4) .step-dot { background: var(--red);   border-radius: 35% 65% 35% 65% / 60% 40% 60% 40%; }
+    .step-dot span {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 18px; color: rgba(17,17,17,0.65);
+    }
+    .step-lbl {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 11px; letter-spacing: 0.2em; color: var(--muted); margin-bottom: 6px;
+    }
+    .step-title { font-size: 20px; font-weight: 900; margin-bottom: 8px; line-height: 1.2; }
+    .step-desc  { font-size: 13px; color: var(--muted); line-height: 1.75; }
+
+    /* ── FAQ ── */
+    .faq-bg { background: var(--bg); }
+    .faq-inner-wrap {
+      margin-top: 48px;
+    }
+    @media (min-width: 768px) {
+      .faq-inner-wrap {
+        display: grid; grid-template-columns: 320px 1fr;
+        gap: 60px; align-items: start;
+        margin-top: 0;
+      }
+      .faq-heading { margin-top: 48px; }
+    }
+    .faq-list {
+      display: flex; flex-direction: column;
+      gap: 2px; background: var(--black);
+      border: 2px solid var(--black);
+    }
+    .faq-item { background: var(--bg); }
+    details { padding: 18px 20px; }
+    summary {
+      font-weight: 700; font-size: 14px;
+      list-style: none; cursor: pointer;
+      display: flex; justify-content: space-between;
+      align-items: center; gap: 12px;
+      -webkit-tap-highlight-color: transparent;
+    }
+    summary::-webkit-details-marker { display: none; }
+    summary::after {
+      content: '+';
+      font-family: 'Bebas Neue', sans-serif; font-size: 22px;
+      color: rgba(17,17,17,0.8); flex-shrink: 0;
+      width: 30px; height: 30px;
+      background: var(--green);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      transition: transform 0.2s; line-height: 1;
+    }
+    details[open] summary::after { transform: rotate(45deg); }
+    .faq-ans {
+      font-size: 13px; color: var(--muted); line-height: 1.85;
+      margin-top: 14px; padding-top: 14px;
+      border-top: 1px solid var(--border);
+    }
+
+    /* ── Final CTA ── */
+    .cta-bg {
+      background: var(--green);
+      border-top: 2px solid var(--black);
+      padding: 100px 0;
+      text-align: center;
+    }
+    .cta-bg .sec-title {
+      font-size: clamp(52px, 10vw, 72px);
+      margin-bottom: 20px;
+      padding-left: 80px;
+    }
+    .cta-bg .sec-body { color: rgba(17,17,17,0.6); margin: 0 auto 48px; }
+    .cta-btn {
+      display: inline-block;
+      background: var(--green); color: var(--black);
+      border: 2px solid var(--black);
+      text-decoration: none; font-weight: 900;
+      font-size: 20px; padding: 20px 48px;
+      letter-spacing: 0.08em; margin-bottom: 16px;
+    }
+    .cta-note { font-size: 12px; color: rgba(17,17,17,0.45); letter-spacing: 0.06em; }
+
+    /* ── Footer ── */
+    footer {
+      background: var(--black);
+      padding: 14px 24px 16px;
+    }
+    .footer-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: flex; align-items: center;
+      justify-content: space-between; flex-wrap: wrap; gap: 12px;
+    }
+    .footer-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 26px; letter-spacing: 0.2em; color: var(--white);
+    }
+    .footer-note { font-size: 11px; color: #3A3A3A; }
+
+    .sp-br { display: none; }
+    @media (max-width: 767px) {
+      .sp-br { display: block; }
+      .cta-bg .sec-title { padding-left: 0; }
+      .cta-btn { font-size: 15px; padding: 16px 28px; }
+      footer { padding-bottom: 20px; }
+      .cmp-tag { font-size: 20px; white-space: nowrap; height: 52px; display: flex; align-items: center; justify-content: center; }
+      .cmp-card.acster .cmp-tag { font-size: 28px; }
+      .creator-grid { grid-template-columns: 1fr; }
+      .hero-title { font-size: 46px; }
+      .cta-bg { padding: 56px 0; }
+      .pullquote { padding: 48px 0; }
+      .pullquote .sec-label,
+      .pullquote .sec-title { text-align: center; }
+    }
+
+    /* ── ぽよんアニメーション ── */
+    @keyframes poyon {
+      0%   { transform: scale(1); }
+      20%  { transform: scale(1.45); }
+      40%  { transform: scale(0.88); }
+      58%  { transform: scale(1.18); }
+      72%  { transform: scale(0.96); }
+      84%  { transform: scale(1.06); }
+      93%  { transform: scale(0.99); }
+      100% { transform: scale(1); }
+    }
+    .poyon { display: inline-block; }
+    .poyon.go { animation: poyon 1.4s cubic-bezier(0.36, 0.07, 0.19, 0.97) forwards; }
+
+
+    /* ── Blob morphing ── */
+    @keyframes morph-green {
+      0%,100% { border-radius: 40% 60% 50% 50% / 55% 45% 55% 45%; }
+      33%     { border-radius: 60% 40% 40% 60% / 40% 60% 60% 40%; }
+      66%     { border-radius: 45% 55% 65% 35% / 55% 45% 40% 60%; }
+    }
+    @keyframes morph-blue {
+      0%,100% { border-radius: 65% 35% 45% 55% / 45% 55% 45% 55%; }
+      33%     { border-radius: 40% 60% 60% 40% / 55% 45% 55% 45%; }
+      66%     { border-radius: 55% 45% 35% 65% / 40% 60% 60% 40%; }
+    }
+    @keyframes morph-yellow {
+      0%,100% { border-radius: 50% 50% 35% 65% / 40% 60% 40% 60%; }
+      33%     { border-radius: 35% 65% 55% 45% / 60% 40% 55% 45%; }
+      66%     { border-radius: 60% 40% 45% 55% / 50% 50% 40% 60%; }
+    }
+    @keyframes morph-red {
+      0%,100% { border-radius: 35% 65% 65% 35% / 60% 40% 60% 40%; }
+      33%     { border-radius: 55% 45% 40% 60% / 40% 60% 45% 55%; }
+      66%     { border-radius: 45% 55% 55% 45% / 55% 45% 55% 45%; }
+    }
+    @keyframes morph-black {
+      0%,100% { border-radius: 55% 45% 40% 60% / 50% 50% 55% 45%; }
+      50%     { border-radius: 40% 60% 55% 45% / 45% 55% 40% 60%; }
+    }
+    /* morphing: デフォルトはpaused、.anim-onで開始 */
+    .blob-green  { animation: morph-green  14s ease-in-out infinite; animation-play-state: paused; }
+    .blob-blue   { animation: morph-blue   16s ease-in-out infinite 1.5s; animation-play-state: paused; }
+    .blob-yellow { animation: morph-yellow 13s ease-in-out infinite 3.0s; animation-play-state: paused; }
+    .blob-red    { animation: morph-red    17s ease-in-out infinite 0.8s; animation-play-state: paused; }
+    .blob-black  { animation: morph-black  11s ease-in-out infinite 2.0s; animation-play-state: paused; }
+
+    /* ── Hero blob floating ── */
+    @keyframes float-blob {
+      0%,100% { transform: translateY(0px); }
+      50%     { transform: translateY(-10px); }
+    }
+    @keyframes float-blob-center {
+      0%,100% { transform: translate(-50%,-50%) translateY(0px); }
+      50%     { transform: translate(-50%,-50%) translateY(-7px); }
+    }
+    /* floating: デフォルトはpaused */
+    .hb1 { animation: float-blob  8.0s ease-in-out infinite;       animation-play-state: paused; }
+    .hb2 { animation: float-blob  7.0s ease-in-out infinite 1.0s;  animation-play-state: paused; }
+    .hb3 { animation: float-blob  9.5s ease-in-out infinite 2.0s;  animation-play-state: paused; }
+    .hb4 { animation: float-blob  8.5s ease-in-out infinite 0.5s;  animation-play-state: paused; }
+    .hb5 { animation: float-blob-center 6.5s ease-in-out infinite 1.5s; animation-play-state: paused; }
+
+    /* .anim-on が付いたコンテナ内のblobをrunningに */
+    .anim-on .hb1,
+    .anim-on .hb2,
+    .anim-on .hb3,
+    .anim-on .hb4,
+    .anim-on .hb5 { animation-play-state: running; }
+    .anim-on .blob-green,
+    .blob-green.anim-on  { animation-play-state: running; }
+    .anim-on .blob-blue,
+    .blob-blue.anim-on   { animation-play-state: running; }
+    .anim-on .blob-yellow,
+    .blob-yellow.anim-on { animation-play-state: running; }
+    .anim-on .blob-red,
+    .blob-red.anim-on    { animation-play-state: running; }
+    .anim-on .blob-black,
+    .blob-black.anim-on  { animation-play-state: running; }
+
+    /* ── Scroll reveal ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="sticky-mobile">
+    <a href="https://lin.ee/Txxt8mp" target="_blank" rel="noopener">LINEで第一期生に応募する</a>
+  </div>
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="logo" href="#">AcSter</a>
+      <a class="header-cta" href="https://lin.ee/Txxt8mp" target="_blank" rel="noopener">今すぐ応募する →</a>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <div class="hero-wrap">
+    <div class="hero-inner">
+      <div class="hero-content">
+        <div class="hero-badge">
+          <span class="live-dot"></span>
+          ACSTER FIRST GENERATION
+        </div>
+        <h1 class="hero-title">
+          あなた<span class="ul">専属</span>の<br>
+          マネージャー<br>
+          が<br>
+          最初からつく。
+        </h1>
+        <p class="hero-sub">
+          音楽系TikTokライバー事務所 AcSter<br>
+          第一期生、募集中
+        </p>
+        <a href="https://lin.ee/Txxt8mp" class="btn-primary" target="_blank" rel="noopener">今すぐLINEで応募する →</a>
+      </div>
+
+      <div class="hero-blobs">
+        <div class="hb blob-green hb1">
+          <div class="hb-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="rgba(17,17,17,0.5)" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke-linecap="round"/></svg>
+          </div>
+          <div class="hb-num">4.6M</div>
+          <div class="hb-label">フォロワー</div>
+        </div>
+        <div class="hb blob-blue hb2">
+          <div class="hb-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="rgba(17,17,17,0.5)" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke-linecap="round"/></svg>
+          </div>
+          <div class="hb-num">748K</div>
+          <div class="hb-label">フォロワー</div>
+        </div>
+        <div class="hb blob-yellow hb3">
+          <div class="hb-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="rgba(17,17,17,0.5)" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke-linecap="round"/></svg>
+          </div>
+          <div class="hb-num">116K</div>
+          <div class="hb-label">フォロワー</div>
+        </div>
+        <div class="hb blob-red hb4">
+          <div class="hb-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke-linecap="round"/></svg>
+          </div>
+          <div class="hb-num" style="color:rgba(255,255,255,0.85)">130K</div>
+          <div class="hb-label" style="color:rgba(255,255,255,0.55)">フォロワー</div>
+        </div>
+        <div class="hb blob-black hb5">
+          <div class="hb-num" style="color:var(--green);font-size:16px">#1</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MARQUEE -->
+  <div class="marquee-wrap">
+    <div class="marquee-track">
+      <span class="marquee-item">MUSIC<span class="dot">×</span>TIKTOK LIVE<span class="dot">×</span>ACSTER<span class="dot"> · </span></span>
+      <span class="marquee-item">MUSIC<span class="dot">×</span>TIKTOK LIVE<span class="dot">×</span>ACSTER<span class="dot"> · </span></span>
+      <span class="marquee-item">MUSIC<span class="dot">×</span>TIKTOK LIVE<span class="dot">×</span>ACSTER<span class="dot"> · </span></span>
+      <span class="marquee-item">MUSIC<span class="dot">×</span>TIKTOK LIVE<span class="dot">×</span>ACSTER<span class="dot"> · </span></span>
+      <span class="marquee-item">MUSIC<span class="dot">×</span>TIKTOK LIVE<span class="dot">×</span>ACSTER<span class="dot"> · </span></span>
+    </div>
+  </div>
+
+  <!-- WHY NOW + STATS -->
+  <section class="sec">
+    <div class="container">
+      <p class="sec-label">WHY NOW</p>
+      <h2 class="sec-title">音楽系は<br>今が<br>一番伸びる。</h2>
+      <p class="sec-body">TikTokは現在、音楽系ライバーをアルゴリズムで優遇しています。この流れが続く今のタイミングで始めることが、フォロワーと収益を最速で伸ばすための最善手です。</p>
+      <div class="stats-grid">
+        <div class="stat-item reveal">
+          <div class="stat-num" data-prefix="#" data-count="1">#1</div>
+          <div class="stat-label">TikTokが力を入れる<br>音楽系ジャンル</div>
+        </div>
+        <div class="stat-item reveal" style="transition-delay:0.1s">
+          <div class="stat-num" data-count="24" data-suffix-el=".stat-unit">24<span class="stat-unit">h</span></div>
+          <div class="stat-label">専属マネージャーが<br>いつでも対応</div>
+        </div>
+        <div class="stat-item reveal" style="transition-delay:0.2s">
+          <div class="stat-num">0<span class="stat-unit">円</span></div>
+          <div class="stat-label">所属・サポートの<br>初期費用</div>
+        </div>
+        <div class="stat-item reveal" style="transition-delay:0.3s">
+          <div class="stat-num" data-count="1" data-suffix-el=".stat-unit">1<span class="stat-unit">人</span></div>
+          <div class="stat-label">あなた専属の<br>マネージャーが確約</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PULL QUOTE -->
+  <section class="pullquote">
+    <div class="container">
+      <p class="sec-label reveal">ACSTER PROMISE</p>
+      <h2 class="sec-title reveal" style="transition-delay:0.1s">稼ぐ。伸びる。<br><span class="em">音楽</span>で生きる。</h2>
+    </div>
+  </section>
+
+  <!-- CREATOR RESULTS -->
+  <section class="sec creators-bg">
+    <div class="container">
+      <p class="sec-label reveal">RESULT</p>
+      <h2 class="sec-title reveal" style="transition-delay:0.1s">数字が<br>証明する。</h2>
+      <p class="sec-body reveal" style="transition-delay:0.2s; max-width:700px">専属サポートを受けたライバーの実績。ゼロからでも、音楽×TikTokで着実に伸びています。</p>
+      <div class="creator-grid">
+        <div class="creator-card reveal">
+          <div class="creator-blob blob-green">
+            <div class="c-icon"><svg viewBox="0 0 24 24" fill="none" stroke="rgba(17,17,17,0.4)" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke-linecap="round"/></svg></div>
+            <div class="c-stat" data-count="4.6" data-suffix="M">4.6M</div>
+            <div class="c-unit">フォロワー</div>
+          </div>
+          <div class="creator-name">音楽系クリエイター</div>
+          <div class="creator-desc">TikTok×歌唱配信で<br>半年でトップ到達</div>
+        </div>
+        <div class="creator-card reveal" style="transition-delay:0.15s">
+          <div class="creator-blob blob-blue">
+            <div class="c-icon"><svg viewBox="0 0 24 24" fill="none" stroke="rgba(17,17,17,0.4)" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke-linecap="round"/></svg></div>
+            <div class="c-stat" data-count="748" data-suffix="K">748K</div>
+            <div class="c-unit">フォロワー</div>
+          </div>
+          <div class="creator-name">未経験スタート</div>
+          <div class="creator-desc">経験ゼロから<br>専属サポートで成長</div>
+        </div>
+        <div class="creator-card reveal" style="transition-delay:0.3s">
+          <div class="creator-blob blob-yellow">
+            <div class="c-icon"><svg viewBox="0 0 24 24" fill="none" stroke="rgba(17,17,17,0.4)" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke-linecap="round"/></svg></div>
+            <div class="c-stat" data-count="116" data-suffix="K">116K</div>
+            <div class="c-unit">フォロワー</div>
+          </div>
+          <div class="creator-name">副業スタート</div>
+          <div class="creator-desc">本業と掛け持ちで<br>安定した収益を構築</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPARE -->
+  <section class="sec">
+    <div class="container">
+      <p class="sec-label">DIFFERENCE</p>
+      <h2 class="sec-title">大手には<br class="sp-br">できない<br class="sp-br">こと。</h2>
+      <p class="sec-body">大手事務所のマネージャー1人が担当するライバーは数千〜数万人。あなたに割ける時間は、ほぼゼロ。AcSterは人数を絞るからこそ、本当の専属サポートができます。</p>
+      <div class="compare-grid">
+        <div class="cmp-card other">
+          <div class="cmp-tag">大手事務所</div>
+          <div class="cmp-num">1<sub>万</sub></div>
+          <div class="cmp-desc">マネージャー1人が<br>担当する人数</div>
+        </div>
+        <div class="cmp-card acster">
+          <div class="cmp-tag">AcSter</div>
+          <div class="cmp-num"><span class="poyon" id="acster-one">1</span></div>
+          <div class="cmp-desc">あなた専属の<br>マネージャーが確約</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="sec features-bg">
+    <div class="container">
+      <p class="sec-label">WHY ACSTER</p>
+      <h2 class="sec-title">3つの<br>約束。</h2>
+      <div class="feat-list">
+        <div class="feat-item">
+          <div class="feat-num c1">01</div>
+          <div class="feat-title">専属マネージャー確約</div>
+          <div class="feat-desc">24時間対応。配信戦略・メンタル・収益設計まで、担当者がマンツーマンで伴走します。第一期生だからこそ実現できるサポート密度です。</div>
+          <div class="feat-tags">
+            <span class="feat-tag lit">24h対応</span>
+            <span class="feat-tag lit">配信戦略</span>
+            <span class="feat-tag lit">収益設計</span>
+          </div>
+        </div>
+        <div class="feat-item">
+          <div class="feat-num c2">02</div>
+          <div class="feat-title">ノルマなし・掛け持ちOK</div>
+          <div class="feat-desc">配信時間・回数のノルマは一切なし。他の配信アプリや事務所との掛け持ちも歓迎。あなたのペースで始められます。</div>
+          <div class="feat-tags">
+            <span class="feat-tag lit">ノルマなし</span>
+            <span class="feat-tag lit">掛け持ちOK</span>
+            <span class="feat-tag lit">副業OK</span>
+          </div>
+        </div>
+        <div class="feat-item">
+          <div class="feat-num c3">03</div>
+          <div class="feat-title">事務所の顔になれる</div>
+          <div class="feat-desc">第一期生は人数を絞って募集します。AcSterが成長するとき、その中心にいるのはあなたです。</div>
+          <div class="feat-tags">
+            <span class="feat-tag lit">先行枠</span>
+            <span class="feat-tag lit">優先露出</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SUPPORT -->
+  <section class="sec support-bg">
+    <div class="container">
+      <p class="sec-label">SUPPORT MENU</p>
+      <h2 class="sec-title">サポート<br>全部入り。</h2>
+      <p class="sec-body">マネジメントだけじゃない。収益の柱を増やすための、最新サポートを揃えています。</p>
+      <div class="sup-grid">
+        <div class="sup-card"><div class="sup-icon si-live">LIVE</div><div class="sup-title">配信コンサル</div><div class="sup-desc">配信時間・タイミング・コメント対応まで個別アドバイス</div></div>
+        <div class="sup-card"><div class="sup-icon si-pr">PR</div><div class="sup-title">PR案件紹介</div><div class="sup-desc">企業タイアップ案件をマネージャーが代わりに交渉・獲得</div></div>
+        <div class="sup-card"><div class="sup-icon si-shop">SHOP</div><div class="sup-title">TikTok Shop</div><div class="sup-desc">ライブコマース設定・商品選定・売上最大化を支援</div></div>
+        <div class="sup-card"><div class="sup-icon si-sns">SNS</div><div class="sup-title">SNS運用指導</div><div class="sup-desc">Instagram・YouTubeとの連携戦略でファンを最大化</div></div>
+        <div class="sup-card"><div class="sup-icon si-mix">MIX</div><div class="sup-title">音楽制作サポート</div><div class="sup-desc">オリジナル楽曲・音源制作のクリエイターを紹介</div></div>
+        <div class="sup-card"><div class="sup-icon si-tax">TAX</div><div class="sup-title">収益管理サポート</div><div class="sup-desc">確定申告・収益の仕組みをわかりやすく説明</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STEPS -->
+  <section class="sec steps-bg">
+    <div class="container">
+      <p class="sec-label">HOW TO JOIN</p>
+      <h2 class="sec-title">参加の<br>流れ。</h2>
+      <div class="step-list">
+        <div class="step-item">
+          <div class="step-dot"><span>1</span></div>
+          <div class="step-lbl">STEP 01</div>
+          <div class="step-title">LINE追加・応募</div>
+          <div class="step-desc">下のボタンからLINEを追加してメッセージを送るだけ。難しい書類はありません。</div>
+        </div>
+        <div class="step-item">
+          <div class="step-dot"><span>2</span></div>
+          <div class="step-lbl">STEP 02</div>
+          <div class="step-title">オンライン面談</div>
+          <div class="step-desc">ビデオ通話15分。やりたいことを聞かせてください。審査ではなく相互確認の場です。</div>
+        </div>
+        <div class="step-item">
+          <div class="step-dot"><span>3</span></div>
+          <div class="step-lbl">STEP 03</div>
+          <div class="step-title">電子契約</div>
+          <div class="step-desc">内容を納得いくまで確認した上で、電子署名で完結。来社不要です。</div>
+        </div>
+        <div class="step-item">
+          <div class="step-dot"><span>4</span></div>
+          <div class="step-lbl">STEP 04</div>
+          <div class="step-title">配信デビュー</div>
+          <div class="step-desc">専属マネージャーと一緒に、初回配信の準備を進めます。</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="sec faq-bg">
+    <div class="container">
+      <div class="faq-inner-wrap">
+        <div class="faq-heading">
+          <p class="sec-label">FAQ</p>
+          <h2 class="sec-title">よくある<br>質問。</h2>
+        </div>
+        <div class="faq-list">
+          <div class="faq-item"><details><summary>未経験でも応募できますか？</summary><div class="faq-ans">はい、歓迎します。配信経験・フォロワー数は問いません。音楽が好き、配信に興味があるという気持ちがあれば十分です。</div></details></div>
+          <div class="faq-item"><details><summary>応募条件を教えてください</summary><div class="faq-ans">18歳以上・日本在住の方（TikTokの規定による）。性別・年齢上限は問いません。楽器・歌・DTMなど音楽への関わりがあれば活かせます。</div></details></div>
+          <div class="faq-item"><details><summary>他の事務所・アプリと掛け持ちできますか？</summary><div class="faq-ans">できます。17LIVE、Pocochaなど他アプリや他事務所との掛け持ちはOKです。まずは気軽に始めてみてください。</div></details></div>
+          <div class="faq-item"><details><summary>ノルマや罰則はありますか？</summary><div class="faq-ans">一切ありません。配信時間・頻度のノルマはなく、強制もしません。</div></details></div>
+          <div class="faq-item"><details><summary>費用はかかりますか？</summary><div class="faq-ans">所属・サポートの費用は無料です。収益が発生した場合のみ、レベニューシェアでお支払いいただく形です。</div></details></div>
+          <div class="faq-item"><details><summary>PR案件やTikTok Shopもサポートしてもらえますか？</summary><div class="faq-ans">はい。企業PR案件の紹介・交渉代行、TikTok Shopのライブコマース設定まで対応します。</div></details></div>
+          <div class="faq-item"><details><summary>契約期間はありますか？</summary><div class="faq-ans">最低契約期間は3ヶ月です。それ以降は2週間前の申告で退所できます。長期の縛りはありません。</div></details></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="cta-bg" id="line-entry">
+    <div class="container">
+      <p class="sec-label">JOIN US</p>
+      <h2 class="sec-title">第一期生になろう。</h2>
+      <p class="sec-body">人数限定。音楽系TikTokライバー、今募集中。</p>
+      <a href="https://lin.ee/Txxt8mp" class="cta-btn" target="_blank" rel="noopener">LINEで今すぐ応募する →</a>
+      <p class="cta-note">審査なし・返信は24時間以内</p>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div>
+        <div class="footer-logo">AcSter</div>
+        <p style="font-size:11px;color:#555;margin-top:4px;letter-spacing:0.06em;">by ReafsAct LLC</p>
+      </div>
+      <p class="footer-note">© 2026 AcSter. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    /* ── Scroll reveal ── */
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          revealObserver.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+    /* ── Blob animation trigger on scroll ── */
+    const blobObserver = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          /* staggerで徐々にrunningにする */
+          const blobs = e.target.querySelectorAll
+            ? e.target.querySelectorAll('.blob-green,.blob-blue,.blob-yellow,.blob-red,.blob-black,.hb1,.hb2,.hb3,.hb4,.hb5')
+            : [e.target];
+          blobs.forEach((b, i) => {
+            setTimeout(() => b.style.animationPlayState = 'running', i * 180);
+          });
+          /* コンテナ自体も対象の場合 */
+          if (e.target.classList.contains('hero-blobs')) {
+            e.target.classList.add('anim-on');
+          }
+          blobObserver.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.2 });
+
+    /* ヒーローblobコンテナ */
+    const heroBlobs = document.querySelector('.hero-blobs');
+    if (heroBlobs) blobObserver.observe(heroBlobs);
+
+    /* クリエイターblobカード */
+    document.querySelectorAll('.creator-blob').forEach(el => blobObserver.observe(el));
+
+    /* ── ぽよん ── */
+    /* ── コンフェッティ ── */
+    function launchConfetti(originEl) {
+      const colors = ['#5AE068','#4BA8FF','#FFE232','#FF4646','#111111'];
+      const count = 22;
+      const rect = originEl.getBoundingClientRect();
+      const cx = rect.left + rect.width / 2 + window.scrollX;
+      const cy = rect.top  + rect.height / 2 + window.scrollY;
+
+      for (let i = 0; i < count; i++) {
+        const dot = document.createElement('div');
+        const size   = 7 + Math.random() * 7;
+        const color  = colors[Math.floor(Math.random() * colors.length)];
+        const radius = Math.random() > 0.45 ? '50%' : '2px';
+        const angle  = (i / count) * 360 + (Math.random() - 0.5) * 28;
+        const dist   = 55 + Math.random() * 90;
+        const rad    = angle * Math.PI / 180;
+        const tx     = Math.cos(rad) * dist;
+        const ty     = Math.sin(rad) * dist;
+        const rot    = Math.random() * 360;
+        const dur    = 650 + Math.random() * 450;
+
+        dot.style.cssText = `
+          position:absolute;
+          width:${size}px; height:${size}px;
+          background:${color};
+          border-radius:${radius};
+          left:${cx}px; top:${cy}px;
+          transform:translate(-50%,-50%);
+          pointer-events:none;
+          z-index:9999;
+        `;
+        document.body.appendChild(dot);
+
+        dot.animate([
+          { transform: `translate(-50%,-50%) translate(0,0) rotate(0deg)`, opacity: 1 },
+          { transform: `translate(-50%,-50%) translate(${tx}px,${ty}px) rotate(${rot}deg)`, opacity: 0 }
+        ], { duration: dur, easing: 'cubic-bezier(0,0.9,0.57,1)', fill: 'forwards' })
+          .onfinish = () => dot.remove();
+      }
+    }
+
+    const poyonEl = document.getElementById('acster-one');
+    if (poyonEl) {
+      const poyonObs = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            poyonEl.classList.add('go');
+            setTimeout(() => launchConfetti(poyonEl), 180);
+            poyonObs.unobserve(poyonEl);
+          }
+        });
+      }, { threshold: 0.7 });
+      poyonObs.observe(poyonEl);
+    }
+
+    /* ── Number count-up ── */
+    function easeOut(t) { return 1 - Math.pow(1 - t, 3); }
+
+    function runCountUp(el) {
+      const target = parseFloat(el.dataset.count);
+      const prefix = el.dataset.prefix || '';
+      const suffix = el.dataset.suffix || '';
+      const isFloat = target % 1 !== 0;
+      const duration = 1400;
+      const start = performance.now();
+
+      // 単位spanを保持
+      const unitSpan = el.querySelector('.stat-unit');
+      const unitHTML = unitSpan ? unitSpan.outerHTML : '';
+
+      function tick(now) {
+        const progress = Math.min((now - start) / duration, 1);
+        const eased = easeOut(progress);
+        const val = isFloat
+          ? (eased * target).toFixed(1)
+          : Math.floor(eased * target);
+        el.innerHTML = prefix + val + suffix + unitHTML;
+        if (progress < 1) requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    }
+
+    const countObserver = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting && e.target.dataset.count) {
+          runCountUp(e.target);
+          countObserver.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.5 });
+
+    document.querySelectorAll('[data-count]').forEach(el => countObserver.observe(el));
+
+    /* ── スティッキーCTA: マーキー以降で表示、上戻ったら非表示、CTA到達で非表示 ── */
+    const stickyBar = document.querySelector('.sticky-mobile');
+    const ctaSection = document.querySelector('.cta-bg');
+    const marqueeSection = document.querySelector('.marquee-wrap');
+
+    if (stickyBar && marqueeSection) {
+      stickyBar.style.opacity = '0';
+      stickyBar.style.pointerEvents = 'none';
+      stickyBar.style.transform = 'translateY(100%)';
+      stickyBar.style.transition = 'opacity 0.6s, transform 0.6s';
+
+      let rafPending = false;
+      function updateSticky() {
+        if (rafPending) return;
+        rafPending = true;
+        requestAnimationFrame(() => {
+          rafPending = false;
+          const marqueeTop = marqueeSection.getBoundingClientRect().top;
+          const vh = window.innerHeight;
+          const afterMarquee = marqueeTop < vh;
+          const ctaRect = ctaSection ? ctaSection.getBoundingClientRect() : null;
+          const atCta = ctaRect && ctaRect.top < vh && ctaRect.bottom > 0;
+          const shouldShow = afterMarquee && !atCta;
+
+          stickyBar.style.opacity = shouldShow ? '1' : '0';
+          stickyBar.style.pointerEvents = shouldShow ? '' : 'none';
+          stickyBar.style.transform = shouldShow ? 'translateY(0)' : 'translateY(100%)';
+        });
+      }
+
+      window.addEventListener('scroll', updateSticky, { passive: true });
+      window.addEventListener('resize', updateSticky, { passive: true });
+      updateSticky();
+    }
+  </script>
+</body>
+</html>
