@@ -89,7 +89,7 @@
     /* ── Hero ── */
     .hero-wrap {
       border-bottom: 2px solid var(--black);
-      padding: 56px 0 64px;
+      padding: 96px 0 104px;
     }
     .hero-inner {
       max-width: 1100px; margin: 0 auto; padding: 0 24px;
@@ -115,7 +115,7 @@
       background: var(--green); border-radius: 50%; flex-shrink: 0;
     }
     .hero-title {
-      font-size: clamp(52px, 12vw, 84px);
+      font-size: clamp(24px, 8vw, 60px);
       font-weight: 900; line-height: 1.0; letter-spacing: -0.03em;
       margin-bottom: 24px;
     }
@@ -174,21 +174,94 @@
     .hb-label { font-size: 10px; font-weight: 700; color: rgba(17,17,17,0.55); }
     .hb5 .hb-num { font-size: 20px; color: var(--green); }
 
-    /* Mobile blob collage: 2x2 grid (not absolute) */
-    @media (max-width: 479px) {
+    @media (max-width: 767px) {
+      .hero-wrap {
+        min-height: calc(100svh - 52px);
+        padding: 0;
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+      }
       .hero-blobs {
-        position: static; height: auto;
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 16px;
+        position: absolute;
+        inset: 0;
+        height: auto;
+        margin: 0;
+        pointer-events: none;
+        z-index: 0;
       }
-      .hb {
-        position: static;
-        transform: none !important;
-        width: auto !important; height: auto !important;
-        aspect-ratio: 1;
+      .hero-blobs .hb { display: none; }
+      .sp-orb { display: none; }
+      .hero-inner {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        z-index: 1;
+        width: 100%;
+        padding: 0 24px;
       }
-      .hb5 { display: none; }
+      .hero-content {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 150px 0 45px;
+        position: relative;
+        z-index: 2;
+      }
+      .hero-content .hero-badge { margin-bottom: 40px; }
+      .hero-content .hero-title { line-height: calc(1em + 10px); }
+      .hero-content .btn-primary { margin-top: auto; }
+    }
+
+    /* ── Sparkle ── */
+    @keyframes sparkle {
+      0%, 100% { opacity: 0;   transform: scale(0.3) rotate(0deg); }
+      50%       { opacity: 1;   transform: scale(1)   rotate(20deg); }
+    }
+    .sp-orb {
+      position: absolute; border-radius: 50%;
+      opacity: 0.28; filter: blur(44px); pointer-events: none;
+    }
+    .orb1 { width: 200px; height: 200px; background: var(--green);  top: 5%;    left: 8%;   animation: float-blob 9.0s ease-in-out infinite; }
+    .orb2 { width: 150px; height: 150px; background: var(--blue);   top: 22%;   right: 4%;  animation: float-blob 7.5s ease-in-out infinite 1.5s; }
+    .orb3 { width: 130px; height: 130px; background: var(--yellow); bottom: 8%; left: 34%;  animation: float-blob 8.0s ease-in-out infinite 3.0s; }
+    .sp {
+      position: absolute; line-height: 1; pointer-events: none;
+      animation: sparkle ease-in-out infinite;
+    }
+    /* 上段 */
+    .sp1  { font-size: 44px; color: var(--green);  top:  5%; left:  6%; animation-duration: 3.2s; animation-delay: 0.0s; }
+    .sp2  { font-size: 20px; color: var(--black);  top:  8%; left: 48%; animation-duration: 2.7s; animation-delay: 0.6s; }
+    .sp3  { font-size: 14px; color: var(--yellow); top: 12%; right: 8%; animation-duration: 4.0s; animation-delay: 1.1s; }
+    .sp4  { font-size: 48px; color: var(--blue);   top: 20%; right: 2%; animation-duration: 3.5s; animation-delay: 1.6s; }
+    /* 中段 */
+    .sp5  { font-size: 16px; color: var(--yellow); top: 38%; left:  8%; animation-duration: 2.4s; animation-delay: 0.9s; }
+    .sp6  { font-size: 36px; color: var(--green);  top: 42%; left: 44%; animation-duration: 3.8s; animation-delay: 2.1s; }
+    .sp7  { font-size: 22px; color: var(--black);  top: 48%; right:10%; animation-duration: 2.2s; animation-delay: 0.4s; }
+    .sp8  { font-size: 12px; color: var(--blue);   top: 55%; left: 22%; animation-duration: 4.1s; animation-delay: 1.9s; }
+    /* 下段 */
+    .sp9  { font-size: 40px; color: var(--yellow); top: 68%; left:  5%; animation-duration: 3.0s; animation-delay: 2.6s; }
+    .sp10 { font-size: 18px; color: var(--green);  top: 72%; left: 40%; animation-duration: 3.6s; animation-delay: 0.8s; }
+    .sp11 { font-size: 28px; color: var(--black);  top: 76%; right:12%; animation-duration: 2.9s; animation-delay: 1.4s; }
+    .sp12 { font-size: 14px; color: var(--blue);   top: 86%; left: 20%; animation-duration: 2.3s; animation-delay: 2.3s; }
+
+    /* ── Sparkle モバイル配置（テキスト右側・四隅のみ）── */
+    @media (max-width: 767px) {
+      .sp1  { font-size: 28px; top:  8%; right: 6%;  left: auto; }
+      .sp2  { font-size: 14px; top:  5%; right:22%;  left: auto; }
+      .sp3  { font-size: 12px; top: 18%; right: 4%;  }
+      .sp4  { font-size: 36px; top: 36%; right: 3%;  left: auto; }
+      .sp5  { font-size: 12px; top: 55%; right:14%;  left: auto; }
+      .sp6  { font-size: 20px; top: 62%; right: 5%;  left: auto; }
+      .sp7  { font-size: 14px; top: 78%; right:20%;  }
+      .sp8  { font-size: 10px; top: 85%; right: 8%;  left: auto; }
+      .sp9  { font-size: 24px; top: 88%; right:30%;  left: auto; }
+      .sp10 { display: none; }
+      .sp11 { display: none; }
+      .sp12 { display: none; }
     }
 
     /* ── Marquee ── */
@@ -303,6 +376,9 @@
     .c-unit { font-size: 11px; font-weight: 700; color: rgba(17,17,17,0.55); }
     .creator-name { font-size: 14px; font-weight: 900; }
     .creator-desc { font-size: 12px; color: var(--muted); line-height: 1.65; text-align: center; }
+    .creator-card:nth-child(1) .creator-blob { animation: float-blob 7.0s ease-in-out infinite; }
+    .creator-card:nth-child(2) .creator-blob { animation: float-blob 8.5s ease-in-out infinite 1.2s; }
+    .creator-card:nth-child(3) .creator-blob { animation: float-blob 6.5s ease-in-out infinite 0.6s; }
 
     /* ── Compare ── */
     .compare-grid {
@@ -320,8 +396,7 @@
       font-size: 28px; letter-spacing: 0.12em;
       color: var(--muted); margin-bottom: 16px;
       display: block;
-      border-bottom: 2px solid var(--border);
-      padding-bottom: 12px;
+      padding-bottom: 0;
     }
     .cmp-card.acster .cmp-tag {
       color: var(--black);
@@ -336,6 +411,49 @@
     .cmp-card.acster .cmp-num { color: var(--black); -webkit-text-stroke: 2px var(--black); }
     .cmp-desc { font-size: 12px; color: var(--muted); margin-top: 12px; line-height: 1.65; }
     .cmp-card.acster .cmp-desc { color: rgba(17,17,17,0.6); }
+
+    /* ── Diff Block ── */
+    /* ── Unified Compare ── */
+    .unified-compare {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 12px; margin-top: 40px;
+    }
+    .uni-col { border: 2px solid var(--black); }
+    .uni-col.other { background: var(--white); }
+    .uni-col.acster { background: var(--green); }
+    .uni-top {
+      padding: 48px 16px 0; text-align: center;
+    }
+    .uni-top::after {
+      content: ''; display: block;
+      border-bottom: 2px solid var(--border);
+      margin-top: 48px;
+    }
+    .uni-col.acster .uni-top::after { border-bottom-color: rgba(17,17,17,0.25); }
+    .uni-col .cmp-tag {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 28px; font-weight: 700; letter-spacing: 0.06em;
+    }
+    .uni-col.acster .cmp-tag { color: var(--black); border-bottom-color: rgba(17,17,17,0.25); }
+    .uni-col.acster .cmp-num { color: var(--black); -webkit-text-stroke: 2px var(--black); }
+    .uni-col.acster .cmp-desc { color: rgba(17,17,17,0.6); }
+    .diff-row {
+      margin: 0 16px;
+      padding: 6px 0;
+    }
+    .uni-col .diff-row:last-child {
+      padding-bottom: 24px;
+    }
+    .diff-label {
+      font-size: 11px; font-weight: 700;
+      color: var(--muted); margin-bottom: 4px; letter-spacing: 0.04em;
+    }
+    .diff-val { font-size: 13px; line-height: 1.65; color: var(--muted); }
+    .uni-col.acster .diff-label { color: rgba(17,17,17,0.55); }
+    .uni-col.acster .diff-val { color: rgba(17,17,17,0.6); }
+    @media (max-width: 640px) {
+      .unified-compare { grid-template-columns: 1fr; }
+    }
 
     /* ── Features ── */
     .features-bg {
@@ -382,14 +500,21 @@
       font-family: 'Bebas Neue', sans-serif;
       font-size: 30px; letter-spacing: 0.04em; margin-bottom: 10px;
     }
-    .si-live { color: var(--green); }
-    .si-pr   { color: var(--blue);  }
-    .si-shop { color: var(--yellow);}
-    .si-sns  { color: var(--red);   }
-    .si-mix  { color: var(--green); }
-    .si-tax  { color: var(--blue);  }
+    .si-live    { color: var(--green); }
+    .si-pr      { color: var(--blue);  }
+    .si-produce { color: var(--yellow); font-size: 22px; }
+    .si-sns     { color: var(--red);   }
+    .si-mix     { color: var(--green); }
+    .si-tax     { color: var(--blue);  }
     .sup-title { font-size: 17px; font-weight: 900; margin-bottom: 6px; }
     .sup-desc  { font-size: 12px; color: var(--muted); line-height: 1.7; }
+
+    /* ── Music Bonus ── */
+    .music-bonus-bg {
+      background: var(--yellow);
+      border-top: 2px solid var(--black);
+      border-bottom: 2px solid var(--black);
+    }
 
     /* ── Steps ── */
     .steps-bg {
@@ -518,7 +643,6 @@
       .cmp-tag { font-size: 20px; white-space: nowrap; height: 52px; display: flex; align-items: center; justify-content: center; }
       .cmp-card.acster .cmp-tag { font-size: 28px; }
       .creator-grid { grid-template-columns: 1fr; }
-      .hero-title { font-size: 46px; }
       .cta-bg { padding: 56px 0; }
       .pullquote { padding: 48px 0; }
       .pullquote .sec-label,
@@ -640,50 +764,29 @@
           ACSTER FIRST GENERATION
         </div>
         <h1 class="hero-title">
-          あなた<span class="ul">専属</span>の<br>
-          マネージャー<br>
-          が<br>
-          最初からつく。
+          自分らしく<span class="ul">輝く</span><br>
+          ステージへ。<br>
+          一歩踏み出すなら、今。
         </h1>
-        <p class="hero-sub">
-          音楽系TikTokライバー事務所 AcSter<br>
-          第一期生、募集中
-        </p>
         <a href="https://lin.ee/Txxt8mp" class="btn-primary" target="_blank" rel="noopener">今すぐLINEで応募する →</a>
       </div>
 
       <div class="hero-blobs">
-        <div class="hb blob-green hb1">
-          <div class="hb-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="rgba(17,17,17,0.5)" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke-linecap="round"/></svg>
-          </div>
-          <div class="hb-num">4.6M</div>
-          <div class="hb-label">フォロワー</div>
-        </div>
-        <div class="hb blob-blue hb2">
-          <div class="hb-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="rgba(17,17,17,0.5)" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke-linecap="round"/></svg>
-          </div>
-          <div class="hb-num">748K</div>
-          <div class="hb-label">フォロワー</div>
-        </div>
-        <div class="hb blob-yellow hb3">
-          <div class="hb-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="rgba(17,17,17,0.5)" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke-linecap="round"/></svg>
-          </div>
-          <div class="hb-num">116K</div>
-          <div class="hb-label">フォロワー</div>
-        </div>
-        <div class="hb blob-red hb4">
-          <div class="hb-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke-linecap="round"/></svg>
-          </div>
-          <div class="hb-num" style="color:rgba(255,255,255,0.85)">130K</div>
-          <div class="hb-label" style="color:rgba(255,255,255,0.55)">フォロワー</div>
-        </div>
-        <div class="hb blob-black hb5">
-          <div class="hb-num" style="color:var(--green);font-size:16px">#1</div>
-        </div>
+        <div class="sp-orb orb1"></div>
+        <div class="sp-orb orb2"></div>
+        <div class="sp-orb orb3"></div>
+        <div class="sp sp1">✦</div>
+        <div class="sp sp2">✦</div>
+        <div class="sp sp3">✦</div>
+        <div class="sp sp4">✦</div>
+        <div class="sp sp5">✦</div>
+        <div class="sp sp6">✦</div>
+        <div class="sp sp7">✦</div>
+        <div class="sp sp8">✦</div>
+        <div class="sp sp9">✦</div>
+        <div class="sp sp10">✦</div>
+        <div class="sp sp11">✦</div>
+        <div class="sp sp12">✦</div>
       </div>
     </div>
   </div>
@@ -703,8 +806,8 @@
   <section class="sec">
     <div class="container">
       <p class="sec-label">WHY NOW</p>
-      <h2 class="sec-title">音楽系は<br>今が<br>一番伸びる。</h2>
-      <p class="sec-body">TikTokは現在、音楽系ライバーをアルゴリズムで優遇しています。この流れが続く今のタイミングで始めることが、フォロワーと収益を最速で伸ばすための最善手です。</p>
+      <h2 class="sec-title">TikTok Liveは<br>今が<br>一番伸びる。</h2>
+      <p class="sec-body">TikTokは現在、新規ライバーや個性を持つクリエイターを応援しています！今のタイミングで始めると、フォロワーと収益を最速で伸ばすチャンス！</p>
       <div class="stats-grid">
         <div class="stat-item reveal">
           <div class="stat-num" data-prefix="#" data-count="1">#1</div>
@@ -730,43 +833,34 @@
   <section class="pullquote">
     <div class="container">
       <p class="sec-label reveal">ACSTER PROMISE</p>
-      <h2 class="sec-title reveal" style="transition-delay:0.1s">稼ぐ。伸びる。<br><span class="em">音楽</span>で生きる。</h2>
+      <h2 class="sec-title reveal" style="transition-delay:0.1s">稼ぐ。伸びる。<br><span class="em">自分らしく</span>生きる。</h2>
     </div>
   </section>
 
-  <!-- CREATOR RESULTS -->
+  <!-- FOR YOU -->
   <section class="sec creators-bg">
     <div class="container">
-      <p class="sec-label reveal">RESULT</p>
-      <h2 class="sec-title reveal" style="transition-delay:0.1s">数字が<br>証明する。</h2>
-      <p class="sec-body reveal" style="transition-delay:0.2s; max-width:700px">専属サポートを受けたライバーの実績。ゼロからでも、音楽×TikTokで着実に伸びています。</p>
+      <p class="sec-label reveal">FOR YOU</p>
+      <h2 class="sec-title reveal" style="transition-delay:0.1s">こんな人も<br>大丈夫。</h2>
+      <p class="sec-body reveal" style="transition-delay:0.2s; max-width:700px">経験も実績もゼロから始められます。専属マネージャーが一緒に作っていきます。</p>
       <div class="creator-grid">
         <div class="creator-card reveal">
           <div class="creator-blob blob-green">
-            <div class="c-icon"><svg viewBox="0 0 24 24" fill="none" stroke="rgba(17,17,17,0.4)" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke-linecap="round"/></svg></div>
-            <div class="c-stat" data-count="4.6" data-suffix="M">4.6M</div>
-            <div class="c-unit">フォロワー</div>
+            <div class="c-stat" style="font-size:28px; font-family:'Noto Sans JP',sans-serif; font-weight:900; line-height:1.3">未経験OK！</div>
           </div>
-          <div class="creator-name">音楽系クリエイター</div>
-          <div class="creator-desc">TikTok×歌唱配信で<br>半年でトップ到達</div>
+          <div class="creator-desc">経験ゼロからでも<br>専属サポートで成長可能</div>
         </div>
         <div class="creator-card reveal" style="transition-delay:0.15s">
           <div class="creator-blob blob-blue">
-            <div class="c-icon"><svg viewBox="0 0 24 24" fill="none" stroke="rgba(17,17,17,0.4)" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke-linecap="round"/></svg></div>
-            <div class="c-stat" data-count="748" data-suffix="K">748K</div>
-            <div class="c-unit">フォロワー</div>
+            <div class="c-stat" style="font-size:28px; font-family:'Noto Sans JP',sans-serif; font-weight:900; line-height:1.3">副業スタート<br>OK！</div>
           </div>
-          <div class="creator-name">未経験スタート</div>
-          <div class="creator-desc">経験ゼロから<br>専属サポートで成長</div>
+          <div class="creator-desc">本業との掛け持ちでも<br>自分のペースで配信</div>
         </div>
         <div class="creator-card reveal" style="transition-delay:0.3s">
           <div class="creator-blob blob-yellow">
-            <div class="c-icon"><svg viewBox="0 0 24 24" fill="none" stroke="rgba(17,17,17,0.4)" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke-linecap="round"/></svg></div>
-            <div class="c-stat" data-count="116" data-suffix="K">116K</div>
-            <div class="c-unit">フォロワー</div>
+            <div class="c-stat" style="font-size:28px; font-family:'Noto Sans JP',sans-serif; font-weight:900; line-height:1.3">不安でもOK！</div>
           </div>
-          <div class="creator-name">副業スタート</div>
-          <div class="creator-desc">本業と掛け持ちで<br>安定した収益を構築</div>
+          <div class="creator-desc">強みや配信スタイルが<br>わからなくても徹底サポート</div>
         </div>
       </div>
     </div>
@@ -777,17 +871,35 @@
     <div class="container">
       <p class="sec-label">DIFFERENCE</p>
       <h2 class="sec-title">大手には<br class="sp-br">できない<br class="sp-br">こと。</h2>
-      <p class="sec-body">大手事務所のマネージャー1人が担当するライバーは数千〜数万人。あなたに割ける時間は、ほぼゼロ。AcSterは人数を絞るからこそ、本当の専属サポートができます。</p>
-      <div class="compare-grid">
-        <div class="cmp-card other">
-          <div class="cmp-tag">大手事務所</div>
-          <div class="cmp-num">1<sub>万</sub></div>
-          <div class="cmp-desc">マネージャー1人が<br>担当する人数</div>
+      <p class="sec-body">大手事務所は大量採用し、マニュアルを渡すだけ。マネージャー1人が担当するのは数万人で、あなたへの時間はほぼゼロです。AcSterは映像・番組制作のプロ集団。少人数限定だから、そのノウハウをあなた一人に注ぎ込めます。</p>
+      <div class="unified-compare reveal">
+        <div class="uni-col other">
+          <div class="uni-top">
+            <div class="cmp-tag">大手事務所</div>
+            <div class="cmp-num">1<sub>万</sub></div>
+          </div>
+          <div class="diff-row">
+            <div class="diff-label">サポート内容</div>
+            <div class="diff-val">配信アプリのマニュアル共有</div>
+          </div>
+          <div class="diff-row">
+            <div class="diff-label">担当体制</div>
+            <div class="diff-val">マネージャー1人で数千人を管理（個別サポートの機会は少ない）</div>
+          </div>
         </div>
-        <div class="cmp-card acster">
-          <div class="cmp-tag">AcSter</div>
-          <div class="cmp-num"><span class="poyon" id="acster-one">1</span></div>
-          <div class="cmp-desc">あなた専属の<br>マネージャーが確約</div>
+        <div class="uni-col acster">
+          <div class="uni-top">
+            <div class="cmp-tag">AcSter</div>
+            <div class="cmp-num"><span class="poyon" id="acster-one">1</span><sub>人</sub></div>
+          </div>
+          <div class="diff-row">
+            <div class="diff-label">サポート内容</div>
+            <div class="diff-val">番組制作レベルの企画・演出プロデュース</div>
+          </div>
+          <div class="diff-row">
+            <div class="diff-label">担当体制</div>
+            <div class="diff-val">エンタメの知見を持つ専属マネージャーがマンツーマンで伴走</div>
+          </div>
         </div>
       </div>
     </div>
@@ -841,7 +953,7 @@
       <div class="sup-grid">
         <div class="sup-card"><div class="sup-icon si-live">LIVE</div><div class="sup-title">配信コンサル</div><div class="sup-desc">配信時間・タイミング・コメント対応まで個別アドバイス</div></div>
         <div class="sup-card"><div class="sup-icon si-pr">PR</div><div class="sup-title">PR案件紹介</div><div class="sup-desc">企業タイアップ案件をマネージャーが代わりに交渉・獲得</div></div>
-        <div class="sup-card"><div class="sup-icon si-shop">SHOP</div><div class="sup-title">TikTok Shop</div><div class="sup-desc">ライブコマース設定・商品選定・売上最大化を支援</div></div>
+        <div class="sup-card"><div class="sup-icon si-produce">PRODUCE</div><div class="sup-title">なりたい自分へ</div><div class="sup-desc">希望があればTikTok以外の活動も充実サポート</div></div>
         <div class="sup-card"><div class="sup-icon si-sns">SNS</div><div class="sup-title">SNS運用指導</div><div class="sup-desc">Instagram・YouTubeとの連携戦略でファンを最大化</div></div>
         <div class="sup-card"><div class="sup-icon si-mix">MIX</div><div class="sup-title">音楽制作サポート</div><div class="sup-desc">オリジナル楽曲・音源制作のクリエイターを紹介</div></div>
         <div class="sup-card"><div class="sup-icon si-tax">TAX</div><div class="sup-title">収益管理サポート</div><div class="sup-desc">確定申告・収益の仕組みをわかりやすく説明</div></div>
@@ -883,6 +995,15 @@
     </div>
   </section>
 
+  <!-- MUSIC BONUS -->
+  <section class="sec music-bonus-bg">
+    <div class="container">
+      <p class="sec-label reveal">MUSIC BONUS</p>
+      <h2 class="sec-title reveal" style="transition-delay:0.1s">音楽ができるなら<br>さらにチャンス！</h2>
+      <p class="sec-body reveal" style="transition-delay:0.2s">TikTokもAcSterも音楽系ライバーを特別応援中！<br>詳しくは面談でご説明します！</p>
+    </div>
+  </section>
+
   <!-- FAQ -->
   <section class="sec faq-bg">
     <div class="container">
@@ -896,8 +1017,7 @@
           <div class="faq-item"><details><summary>応募条件を教えてください</summary><div class="faq-ans">18歳以上・日本在住の方（TikTokの規定による）。性別・年齢上限は問いません。楽器・歌・DTMなど音楽への関わりがあれば活かせます。</div></details></div>
           <div class="faq-item"><details><summary>他の事務所・アプリと掛け持ちできますか？</summary><div class="faq-ans">できます。17LIVE、Pocochaなど他アプリや他事務所との掛け持ちはOKです。まずは気軽に始めてみてください。</div></details></div>
           <div class="faq-item"><details><summary>ノルマや罰則はありますか？</summary><div class="faq-ans">一切ありません。配信時間・頻度のノルマはなく、強制もしません。</div></details></div>
-          <div class="faq-item"><details><summary>費用はかかりますか？</summary><div class="faq-ans">所属・サポートの費用は無料です。収益が発生した場合のみ、レベニューシェアでお支払いいただく形です。</div></details></div>
-          <div class="faq-item"><details><summary>PR案件やTikTok Shopもサポートしてもらえますか？</summary><div class="faq-ans">はい。企業PR案件の紹介・交渉代行、TikTok Shopのライブコマース設定まで対応します。</div></details></div>
+          <div class="faq-item"><details><summary>費用はかかりますか？</summary><div class="faq-ans">所属・サポートの費用は無料です。レッスン料、研修費なども不要です。収益が発生した場合のみ、レベニューシェアでお支払いいただく形です。</div></details></div>
           <div class="faq-item"><details><summary>契約期間はありますか？</summary><div class="faq-ans">最低契約期間は3ヶ月です。それ以降は2週間前の申告で退所できます。長期の縛りはありません。</div></details></div>
         </div>
       </div>
