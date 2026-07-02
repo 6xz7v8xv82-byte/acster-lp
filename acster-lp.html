@@ -641,6 +641,45 @@
       font-size: 26px; letter-spacing: 0.2em; color: var(--white);
     }
     .footer-note { font-size: 11px; color: #3A3A3A; }
+    .footer-link {
+      font-size: 11px; color: #555; text-decoration: underline;
+      text-underline-offset: 3px; cursor: pointer; background: none;
+      border: none; padding: 0; letter-spacing: 0.06em;
+    }
+    .footer-link:hover { color: #999; }
+
+    /* ── Privacy Modal ── */
+    .pp-overlay {
+      display: none; position: fixed; inset: 0; z-index: 9999;
+      background: rgba(0,0,0,0.7); backdrop-filter: blur(4px);
+      align-items: center; justify-content: center; padding: 24px;
+    }
+    .pp-overlay.open { display: flex; }
+    .pp-modal {
+      background: #fff; border-radius: 16px;
+      max-width: 680px; width: 100%; max-height: 85vh;
+      overflow-y: auto; padding: 40px 44px;
+      position: relative;
+    }
+    .pp-close {
+      position: sticky; top: 0; float: right;
+      background: none; border: none; cursor: pointer;
+      font-size: 22px; color: #777; line-height: 1;
+      margin: -8px -8px 16px 16px;
+    }
+    .pp-close:hover { color: #111; }
+    .pp-modal h1 { font-size: 20px; font-weight: 800; margin-bottom: 24px; letter-spacing: 0.04em; }
+    .pp-modal h2 { font-size: 14px; font-weight: 700; margin: 28px 0 8px; }
+    .pp-modal p, .pp-modal li { font-size: 13px; color: #444; line-height: 1.9; }
+    .pp-modal ul, .pp-modal ol { padding-left: 1.4em; margin: 8px 0; }
+    .pp-modal table { width: 100%; border-collapse: collapse; font-size: 12px; margin: 12px 0; }
+    .pp-modal td { border: 1px solid #ddd; padding: 8px 12px; color: #444; line-height: 1.7; vertical-align: top; }
+    .pp-modal td:first-child { white-space: nowrap; font-weight: 700; color: #222; width: 30%; }
+    .pp-modal hr { border: none; border-top: 1px solid #eee; margin: 20px 0; }
+    .pp-date { font-size: 12px; color: #888; margin-top: 32px; }
+    @media (max-width: 767px) {
+      .pp-modal { padding: 28px 24px; }
+    }
 
     .sp-br { display: none; }
     @media (max-width: 767px) {
@@ -1052,9 +1091,102 @@
         <div class="footer-logo">AcSter</div>
         <p style="font-size:11px;color:#555;margin-top:4px;letter-spacing:0.06em;">by ReafsAct LLC</p>
       </div>
-      <p class="footer-note">© 2026 AcSter. All rights reserved.</p>
+      <div style="text-align:right;">
+        <button class="footer-link" onclick="document.getElementById('pp-overlay').classList.add('open')">プライバシーポリシー</button>
+        <p class="footer-note" style="margin-top:6px;">© 2026 AcSter. All rights reserved.</p>
+      </div>
     </div>
   </footer>
+
+  <!-- Privacy Policy Modal -->
+  <div class="pp-overlay" id="pp-overlay" onclick="if(event.target===this)this.classList.remove('open')">
+    <div class="pp-modal">
+      <button class="pp-close" onclick="document.getElementById('pp-overlay').classList.remove('open')">✕</button>
+      <h1>プライバシーポリシー</h1>
+      <p>合同会社ReafsAct（以下「当事務所」）は、ライバーの皆さまおよびウェブサイト訪問者の個人情報を適切に管理・保護することを重要な社会的責務と認識し、以下のとおり個人情報保護方針を定めます。</p>
+
+      <hr>
+      <h2>第1条（個人情報の定義）</h2>
+      <p>「個人情報」とは、個人情報の保護に関する法律（以下「個人情報保護法」）第2条第1項に定める情報を指し、氏名・生年月日・住所・電話番号・メールアドレス等、特定の個人を識別できる情報をいいます。</p>
+
+      <hr>
+      <h2>第2条（収集する個人情報の種類）</h2>
+      <p>当事務所は、お問い合わせ・応募等の際に以下の情報を取得することがあります。</p>
+      <ul>
+        <li>氏名（芸名・ニックネームを含む）</li>
+        <li>生年月日・年齢</li>
+        <li>性別</li>
+        <li>住所・郵便番号</li>
+        <li>電話番号</li>
+        <li>メールアドレス</li>
+        <li>SNSアカウント情報（TikTokアカウント等）</li>
+        <li>配信活動に関する情報（フォロワー数・配信実績・所属歴等）</li>
+        <li>その他ご応募・お問い合わせに際してご提供いただく情報</li>
+      </ul>
+
+      <hr>
+      <h2>第3条（利用目的）</h2>
+      <p>取得した個人情報は、以下の目的のためにのみ利用します。</p>
+      <ol>
+        <li>ライバー募集に関するご案内・選考・面談の実施</li>
+        <li>所属ライバーへのマネジメント・サポート業務</li>
+        <li>当事務所からのご連絡・各種お知らせの送信</li>
+        <li>各種プラットフォーム（TikTok LIVE等）への申請・届出手続き</li>
+        <li>業務委託先（MCN・プラットフォーム運営者等）への必要な情報の提供（第5条の範囲内）</li>
+        <li>法令・規約上の義務の履行</li>
+        <li>前各号に付随する業務</li>
+      </ol>
+
+      <hr>
+      <h2>第4条（適法かつ公正な取得）</h2>
+      <p>当事務所は、偽りや不正な方法によらず、適法かつ公正な手段によってのみ個人情報を取得します。</p>
+
+      <hr>
+      <h2>第5条（第三者への提供）</h2>
+      <p>当事務所は、以下のいずれかに該当する場合を除き、ご本人の事前の同意なく個人情報を第三者に提供しません。</p>
+      <ol>
+        <li>ご本人の事前の同意がある場合</li>
+        <li>法令に基づく場合</li>
+        <li>人の生命・身体・財産の保護のために必要があり、ご本人の同意を得ることが困難な場合</li>
+        <li>公衆衛生の向上または児童の健全育成のために特に必要がある場合</li>
+        <li>業務遂行のために必要な範囲で業務委託先（TikTok LIVE関連MCN等）に開示する場合（委託先に対し適切な監督を行います）</li>
+        <li>合併・事業承継に伴う場合</li>
+      </ol>
+
+      <hr>
+      <h2>第6条（安全管理措置）</h2>
+      <p>当事務所は、個人情報への不正アクセス・紛失・破損・改ざん・漏洩等を防止するため、以下の安全管理措置を講じます。</p>
+      <table>
+        <tr><td>組織的措置</td><td>個人情報の取扱状況の把握、インシデント発生時の対応体制の整備</td></tr>
+        <tr><td>人的措置</td><td>個人情報を取り扱う者への教育・監督の徹底</td></tr>
+        <tr><td>物理的措置</td><td>個人情報を記録した媒体・機器の適切な管理</td></tr>
+        <tr><td>技術的措置</td><td>アクセス制御・不正アクセス防止・情報システムの適切な管理</td></tr>
+      </table>
+
+      <hr>
+      <h2>第7条（開示・訂正・削除・利用停止の請求）</h2>
+      <p>ご本人またはその法定代理人から、保有個人情報の開示・訂正・追加・削除・利用停止・消去・第三者提供の停止の請求があった場合は、ご本人であることを確認した上、合理的な範囲で遅滞なく対応いたします。なお、ご本人確認のため、氏名・メールアドレス等をご提出いただく場合があります。ご請求先：第10条のお問い合わせ窓口までご連絡ください。</p>
+
+      <hr>
+      <h2>第8条（Cookie等の利用）</h2>
+      <p>当事務所のウェブサイトでは、利便性向上およびアクセス解析のためにCookieを使用することがあります。Cookieによって個人を直接識別することはありません。ブラウザの設定でCookieを無効にすることもできますが、一部のサービスが利用できなくなる場合があります。</p>
+
+      <hr>
+      <h2>第9条（対象年齢について）</h2>
+      <p>当事務所のサービスは18歳以上を対象としています。18歳未満の方からの個人情報の取得は意図しておらず、該当する情報が含まれていると判明した場合は速やかに削除します。</p>
+
+      <hr>
+      <h2>第10条（本ポリシーの変更）</h2>
+      <p>本ポリシーは、法令の改正・社会情勢の変化に応じて適宜見直し、改定することがあります。改定後のポリシーは、当事務所のウェブサイトに掲載した時点から効力を生じます。重要な変更については、ウェブサイト上でお知らせします。</p>
+
+      <hr>
+      <h2>お問い合わせ窓口</h2>
+      <p>個人情報の取扱いに関するお問い合わせは、下記までご連絡ください。</p>
+      <p><strong>合同会社ReafsAct　個人情報担当</strong><br>代表者：濱田優聖<br>メールアドレス：info@rymer.jp</p>
+
+      <p class="pp-date">制定日：2026年7月1日</p>
+    </div>
+  </div>
 
   <script>
     /* ── Scroll reveal ── */
